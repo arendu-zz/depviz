@@ -2,6 +2,11 @@
     margin: 10px;
 }
 
+.label {
+    font-size: small;
+    position: absolute;
+}
+
 .container {
     position: relative;
     top: 50%;

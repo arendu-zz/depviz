@@ -29,8 +29,10 @@ function deptest() {
             var source_obj = spans[fromid]
             console.log("position of target span:" + $(target_obj).offset().left + " " + $(target_obj).offset().top)
             console.log("position of source span:" + $(source_obj).offset().left + " " + $(source_obj).offset().top)
-            var arrow = makeArrow(source_obj, target_obj)
-            $('#arrowdiv').append(arrow)
+            var a = makeArrow(source_obj, target_obj)
+
+            $('#arrowdiv').append(a.arrow)
+            $('#arrowdiv').append(a.label)
         }
     }
 }
@@ -58,10 +60,22 @@ function makeArrow(source_obj, target_obj) {
         p1x: $(source_obj).width() / 2 + midpoint + $(source_obj).offset().left,
         p1y: uppoint,
         p2x: target_obj.get_TopPoint().x,
-        p2y: target_obj.get_TopPoint().y,
-        id: "thisarrow2"
+        p2y: target_obj.get_TopPoint().y
     })
-    return arrow
+
+
+    var label = document.createElement("span")
+    label.innerHTML = 'label'
+    $(label).addClass('lable')
+    var elem = $(label)
+    elem.css({
+        position: 'absolute',
+        left: $(source_obj).width() / 2 + midpoint + $(source_obj).offset().left,
+        top: uppoint
+    })
+
+
+    return {arrow: arrow, label: label}
 }
 
 function spanWrapper(txt) {
