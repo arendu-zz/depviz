@@ -5,6 +5,7 @@
 .label {
     font-size: small;
     position: absolute;
+    transform: translateX(-50%);
 }
 
 .container {

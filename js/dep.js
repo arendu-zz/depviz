@@ -66,10 +66,9 @@ function makeArrow(source_obj, target_obj) {
 
     var label = document.createElement("span")
     label.innerHTML = 'label'
-    $(label).addClass('lable')
+    $(label).addClass('label')
     var elem = $(label)
     elem.css({
-        position: 'absolute',
         left: $(source_obj).width() / 2 + midpoint + $(source_obj).offset().left,
         top: uppoint
     })
