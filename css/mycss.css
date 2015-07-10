@@ -1,0 +1,17 @@
+.word {
+    margin: 10px;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    overflow: auto;
+}
+
+.mainBody {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}

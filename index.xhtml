@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css"/>
+    <link type="text/css" rel="stylesheet" href="css/joint.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mycss.css"/>
+    <script type="text/javascript" src="js/joint.js"/>
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"/>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"/>
+    <script type="text/javascript" src="js/d3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.curvedarrow.js"/>
+    <script type="text/javascript" src="js/fsa.js"/>
+    <script type="text/javascript" src="js/dep.js"/>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //start()
+            deptest()
+            var curvedLine = $('#arrowdiv').curvedArrow({
+                p0x: 100,
+                p0y: 100,
+                p1x: 200,
+                p1y: 500,
+                p2x: 400,
+                p2y: 400,
+                id: "thisarrow1"
+            })
+
+            var curvedLine2 = $('#arrowdiv').curvedArrow({
+                p0x: 100,
+                p0y: 100,
+                p1x: 200,
+                p1y: 200,
+                p2x: 200,
+                p2y: 400,
+                id: "thisarrow2"
+            })
+
+            /*$('#arrowdiv').append(curvedLine)
+             $('#arrowdiv').append(curvedLine2)*/
+
+
+            /*var dataset = []
+             var theData = [10, 20, 30]
+             var i = 0;
+
+             for (i = 0; i &lt; 5; i++) {
+             dataset.push(Math.round(Math.random() * 100));
+             }
+
+
+             var sampleSVG = d3.select("#viz")
+             .append("svg")
+             .attr("width", 100)
+             .attr("height", 100);
+
+
+             var sampleSVG2 = d3.select("#viz")
+             .append("svg")
+             .attr("width", 1200)
+             .attr("height", 1120);
+
+
+             var p = d3.select("body").selectAll("p")
+             .data(theData)
+             .enter()
+             .append("p")
+             .text(function (d) {
+             return 'my data:' + d.toString();
+             });
+
+
+             sampleSVG2.append("circle")
+             .style("stroke", "gray")
+             .style("fill", "white")
+             .attr("r", 140)
+             .attr("cx", 150)
+             .attr("cy", 250)
+             .on("mouseover", function () {
+             d3.select(this).style("fill", "red");
+             })
+             .on("mouseout", function () {
+             d3.select(this).style("fill", "white");
+             })
+             .on("mousedown", animate);
+             });
+             function animate() {
+             d3.select(this).transition()
+             .attr("r", 10)
+             .transition()
+             .attr("r", 40)
+             .transition()
+             .attr("r", 10)
+             .transition()
+             .attr("r", 40)
+             .transition()
+             .attr("r", 10)
+             .transition()
+             .attr("r", 40);
+
+             */
+        })
+
+
+    </script>
+    <title></title>
+</head>
+
+<body>
+<div class="mainBody">
+    <div id="myholder" class="container"/>
+</div>
+<div id="arrowdiv"/>
+<div id="viz"/>
+</body>
+</html>
