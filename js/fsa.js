@@ -23,7 +23,8 @@ function start() {
         height: 1000,
         model: graph,
         gridSize: 1,
-        interactive: false
+        interactive: false,
+        pointerEvents: false
     });
 
     var conllsplit = []
@@ -82,6 +83,7 @@ function makelinkObj(source_obj, target_obj) {
     });
 
     _link.on('change:vertices', onChange)
+    _link.on('cell:mouseover', onMouseOver)
     return _link
 }
 
@@ -89,7 +91,9 @@ function makelinkObj(source_obj, target_obj) {
 function onChange(element) {
     console.log(element.id, ':', element.get('vertices')[0]);
 }
-
+function onMouseOver(element) {
+    console.log("on mouse over seen from link")
+}
 
 function ShapeWrapper(x, y, w, h, txt) {
 
