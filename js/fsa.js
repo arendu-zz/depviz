@@ -18,35 +18,48 @@ function start() {
     var graph = new joint.dia.Graph;
 
     var paper = new joint.dia.Paper({
-        el: $('#myholder'),
-        width: 1600,
-        height: 1000,
+        el: $('#viz'),
         model: graph,
         gridSize: 1,
         interactive: false,
-        pointerEvents: false
+        fill: 'blue',
     });
+
+    paper.fitToContent(1000, 1000, 0, 'any')
 
     var conllsplit = []
     var rects = []
+    var rectSpan = false
     for (var i = 0; i < conll.length; i++) {
         var c = conll[i].split(/\s+/)
         var o = {word: c[1], from: c[6], label: c[7]}
         conllsplit.push(o)
-        var rect = new ShapeWrapper(100 * i, 300, 50, 20, c[1])
+        var rect = new ShapeWrapper(100 * i, 0, 50, 20, c[1])
+        //var rect = new spanWrapper(c[1])
         rects.push(rect)
     }
 
     var links = []
+    var minpoint = []
     for (var i = 0; i < conllsplit.length; i++) {
         console.log("making link form : " + conllsplit[i].from + " to " + (i + 1).toString())
         var fromid = parseInt(conllsplit[i].from) - 1
         if (fromid >= 0) {
             var target_obj = rects[i]
             var source_obj = rects[fromid]
-            links.push(makelinkObj(source_obj, target_obj, conllsplit[i].label))
+            var l = makelinkObj(source_obj, target_obj, conllsplit[i].label)
+            links.push(l.link)
+            minpoint.push(l.uppoint)
         }
 
+    }
+
+
+    var min = 0;
+    for (var i = 0; i < minpoint.length; i++) {
+        if (minpoint[i] < min) {
+            min = minpoint[i]
+        }
     }
 
 
@@ -55,8 +68,21 @@ function start() {
 
 
     /*graph.addCells([rect, rect2, rect3, link, link2]);*/
-    graph.addCells(rects)
+
+    if (rectSpan) {
+        for (var i = 0; i < rects.length; i++) {
+            $('#myholder').append(rects[i]);
+            console.log("adding span with location:" + rects[i].getX() + " , " + rects[i].getY())
+        }
+
+    } else {
+        graph.addCells(rects)
+    }
+
     graph.addCells(links)
+
+    console.log("high point is:" + min)
+    paper.setOrigin(0, -min + 20)
 
 }
 
@@ -67,9 +93,9 @@ function makelinkObj(source_obj, target_obj, link_lable) {
     var midpoint = left + (gap / 2)
     var onethirdpoint = left + (gap / 4)
     var twothirdpoint = left + (gap * 3 / 4)
-    var uppoint = target_obj.get('position').y - (gap * 0.15)
+    var uppoint = target_obj.getTopPoint().y - (gap * 0.15)
     var vert = []
-    if (source_obj.get('position').x > target_obj.get('position').x) {
+    if (source_obj.getTopPoint().x > target_obj.getTopPoint().x) {
         vert = [{x: twothirdpoint, y: uppoint}, {x: onethirdpoint, y: uppoint}]
     } else {
         vert = [{x: onethirdpoint, y: uppoint}, {x: twothirdpoint, y: uppoint}]
@@ -93,7 +119,7 @@ function makelinkObj(source_obj, target_obj, link_lable) {
 
     _link.on('change:vertices', onChange)
     _link.on('cell:mouseover', onMouseOver)
-    return _link
+    return {link: _link, uppoint: uppoint}
 }
 
 
@@ -111,13 +137,14 @@ function ShapeWrapper(x, y, w, h, txt) {
         size: {width: w, height: h},
         attrs: {rect: {fill: 'blue', 'fill-opacity': 0, 'stroke-width': 0}, text: {text: txt, fill: 'black'}}
     });
-    self.getX = function () {
-        self.get('position').x
+
+    joint.shapes.basic.Rect.prototype.getX = function () {
+        return this.get('position').x
     }
-    self.getY = function () {
-        self.get('position').y
+    joint.shapes.basic.Rect.prototype.getY = function () {
+        return this.get('position').y
     }
-    self.getTopPoint = function () {
+    joint.shapes.basic.Rect.prototype.getTopPoint = function () {
         var m = this.get('size').width / 2
         return {x: this.get('position').x + m, y: this.get('position').y}
     }

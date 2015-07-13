@@ -49,18 +49,18 @@ function makeArrow(source_obj, target_obj) {
 
     var p = $(source_obj).width() / 2 + midpoint + $(source_obj).offset().left
     console.log("arrow from : " + source_obj.innerHTML + "  to " + target_obj.innerHTML)
-    console.log("source x:" + source_obj.get_TopPoint().x + " source y:" + source_obj.get_TopPoint().y)
+    console.log("source x:" + source_obj.getTopPoint().x + " source y:" + source_obj.getTopPoint().y)
     console.log("midpoint x: " + p + " width:" + $(source_obj).width())
     console.log("uppoint y:" + uppoint)
-    console.log("target x:" + target_obj.get_TopPoint().x + " target y:" + target_obj.get_TopPoint().y)
+    console.log("target x:" + target_obj.getTopPoint().x + " target y:" + target_obj.getTopPoint().y)
 
     var arrow = $('#arrowdiv').curvedArrow({
-        p0x: source_obj.get_TopPoint().x,
-        p0y: source_obj.get_TopPoint().y,
+        p0x: source_obj.getTopPoint().x,
+        p0y: source_obj.getTopPoint().y,
         p1x: $(source_obj).width() / 2 + midpoint + $(source_obj).offset().left,
         p1y: uppoint,
-        p2x: target_obj.get_TopPoint().x,
-        p2y: target_obj.get_TopPoint().y
+        p2x: target_obj.getTopPoint().x,
+        p2y: target_obj.getTopPoint().y
     })
 
 
@@ -81,11 +81,17 @@ function spanWrapper(txt) {
     var self = document.createElement("span")
     self.innerHTML = txt
     $(self).addClass("my_word")
-
-    self.get_TopPoint = function () {
-        var m = $(self).width() / 2
+    Element.prototype.getX = function () {
+        return $(this).offset().left
+    }
+    Element.prototype.getY = function () {
+        return $(this).offset().top
+    }
+    Element.prototype.getTopPoint = function () {
+        var m = $(this).width() / 2
         return {x: $(this).offset().left + m, y: $(this).offset().top}
     }
-
     return self
 }
+
+

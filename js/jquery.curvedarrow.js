@@ -6,9 +6,7 @@
             p1x: 70,
             p1y: 10,
             p2x: 100,
-            p2y: 100,
-            p3x: 150,
-            p3y: 300,
+            p2y: 300,
             size: 5,
             lineWidth: 1,
             strokeStyle: 'grey'

@@ -14,12 +14,14 @@
     transform: translateY(-50%);
     display: inline-block;
     overflow: auto;
+    background: grey;
 }
 
 .mainBody {
     text-align: center;
     width: 100vw;
     height: 100vh;
+
 }
 
 .connection-wrap {
