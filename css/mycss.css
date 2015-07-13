@@ -1,8 +1,8 @@
-.word {
+.my_word {
     margin: 10px;
 }
 
-.label {
+.my_label {
     font-size: small;
     position: absolute;
     transform: translateX(-50%);
@@ -23,19 +23,19 @@
 }
 
 .connection-wrap {
-    display: none
+    /*display: none*/
 }
 
 .marker-arrowhead {
-    display: none
+    /*display: none*/
 }
 
 .link-tools {
-    display: none
+    /*display: none*/
 }
 
 .marker-vertices {
-    display: none
+    /*display: none*/
 }
 
 .element.basic.Rect {

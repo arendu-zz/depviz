@@ -44,7 +44,7 @@ function start() {
         if (fromid >= 0) {
             var target_obj = rects[i]
             var source_obj = rects[fromid]
-            links.push(makelinkObj(source_obj, target_obj))
+            links.push(makelinkObj(source_obj, target_obj, conllsplit[i].label))
         }
 
     }
@@ -60,16 +60,25 @@ function start() {
 
 }
 
-function makelinkObj(source_obj, target_obj) {
-    var midpoint = (Math.abs(source_obj.get('position').x - target_obj.get('position').x) / 2)
-    var uppoint = target_obj.get('position').y - (midpoint * 0.75)
+function makelinkObj(source_obj, target_obj, link_lable) {
+    var left = (source_obj.getTopPoint().x < target_obj.getTopPoint().x ) ? source_obj.getTopPoint().x : target_obj.getTopPoint().x
+    var right = (source_obj.getTopPoint().x > target_obj.getTopPoint().x ) ? source_obj.getTopPoint().x : target_obj.getTopPoint().x
+    var gap = right - left
+    var midpoint = left + (gap / 2)
+    var onethirdpoint = left + (gap / 4)
+    var twothirdpoint = left + (gap * 3 / 4)
+    var uppoint = target_obj.get('position').y - (gap * 0.15)
+    var vert = []
     if (source_obj.get('position').x > target_obj.get('position').x) {
-        midpoint = midpoint * -1
+        vert = [{x: twothirdpoint, y: uppoint}, {x: onethirdpoint, y: uppoint}]
+    } else {
+        vert = [{x: onethirdpoint, y: uppoint}, {x: twothirdpoint, y: uppoint}]
     }
     var _link = new joint.dia.Link({
         source: {x: source_obj.getTopPoint().x, y: source_obj.getTopPoint().y},
         target: {x: target_obj.getTopPoint().x, y: target_obj.getTopPoint().y},
-        vertices: [{x: source_obj.get('size').width / 2 + midpoint + source_obj.get('position').x, y: uppoint}],
+        labels: [{position: .5, attrs: {text: {text: link_lable}}}],
+        vertices: vert,
         smooth: true,
         attrs: {}
     });

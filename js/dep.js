@@ -66,7 +66,7 @@ function makeArrow(source_obj, target_obj) {
 
     var label = document.createElement("span")
     label.innerHTML = 'label'
-    $(label).addClass('label')
+    $(label).addClass('my_label')
     var elem = $(label)
     elem.css({
         left: $(source_obj).width() / 2 + midpoint + $(source_obj).offset().left,
@@ -80,7 +80,7 @@ function makeArrow(source_obj, target_obj) {
 function spanWrapper(txt) {
     var self = document.createElement("span")
     self.innerHTML = txt
-    $(self).addClass("word")
+    $(self).addClass("my_word")
 
     self.get_TopPoint = function () {
         var m = $(self).width() / 2
